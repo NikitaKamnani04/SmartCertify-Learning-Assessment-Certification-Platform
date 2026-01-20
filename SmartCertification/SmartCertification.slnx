@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../SmartCertification.Application/SmartCertification.Application.csproj" />
+  <Project Path="../SmartCertification.Domain/SmartCertification.Domain.csproj" />
+  <Project Path="../SmartCertification.Infrastructure/SmartCertification.Infrastructure.csproj" />
+  <Project Path="SmartCertification.API.csproj" />
+</Solution>
