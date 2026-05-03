@@ -1,0 +1,121 @@
+/* Page */
+.page {
+  padding: 30px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  margin: 0;
+  color: #1e293b;
+}
+
+.header p {
+  margin: 4px 0 0;
+  color: #64748b;
+}
+
+/* Back Button */
+.back-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #e2e8f0;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #cbd5f5;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+/* Table */
+.question-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header row */
+.question-table th {
+  text-align: left;
+  padding: 12px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 14px;
+}
+
+/* Body row */
+.question-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Hover effect */
+.question-table tr:hover {
+  background: #f8fafc;
+}
+
+/* Question text */
+.question-text {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Buttons */
+.btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Edit */
+.btn.edit {
+  background: #6366f1;
+  color: white;
+}
+
+.btn.edit:hover {
+  background: #4f46e5;
+}
+
+/* Delete */
+.btn.delete {
+  background: #ef4444;
+  color: white;
+}
+
+.btn.delete:hover {
+  background: #dc2626;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #94a3b8;
+}

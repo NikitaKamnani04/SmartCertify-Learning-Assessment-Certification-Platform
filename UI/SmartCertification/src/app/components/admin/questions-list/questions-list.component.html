@@ -1,0 +1,27 @@
+<div class="table-container">
+
+  <div class="header">
+    <h2>Questions</h2>
+    <!-- <button routerLink="/admin/question/create" class="add-btn">
+      + Add Question
+    </button> -->
+  </div>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Question</th>
+      <th>Actions</th>
+    </tr>
+
+    <tr *ngFor="let q of questions">
+      <td>{{ q.id }}</td>
+      <td>{{ q.questionText }}</td>
+      <td>
+        <button class="edit-btn" [routerLink]="['/admin/question/edit', q.questionId]">Edit</button>
+        <button class="delete-btn" (click)="delete(q.id)">Delete</button>
+      </td>
+    </tr>
+  </table>
+
+</div>

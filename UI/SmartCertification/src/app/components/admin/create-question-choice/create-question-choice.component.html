@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="card">
+
+    <h2 class="title">
+      {{ isEditMode ? '✏️ Edit Question' : '➕ Create Question' }}
+    </h2>
+
+    <!-- Course Badge -->
+    <div *ngIf="question.courseId" class="course-badge">
+      📘 {{ getCourseTitle(question.courseId) }}
+    </div>
+
+    <!-- Question -->
+    <div class="form-group">
+      <label>Question</label>
+      <input [(ngModel)]="question.questionText" placeholder="Enter question" />
+    </div>
+
+    <!-- Options -->
+    <div class="options-grid">
+      <div class="form-group" *ngFor="let opt of ['A','B','C','D']; let i = index">
+        <label>Option {{opt}}</label>
+        <input [(ngModel)]="question['option' + opt]" placeholder="Option {{opt}}" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Difficulty</label>
+      <select [(ngModel)]="question.difficultyLevel">
+        <option value="">Select Difficulty</option>
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
+    </div>
+
+    <!-- Toggles -->
+    <div class="toggle-group">
+      <label>
+        <input type="checkbox" [(ngModel)]="question.isCode" />
+        Coding Question
+      </label>
+
+      <label>
+        <input type="checkbox" [(ngModel)]="question.hasMultipleAnswers" />
+        Multiple Answers
+      </label>
+    </div>  
+
+    <!-- Correct Answer -->
+    <div class="form-group">
+  <label>Correct Answer</label>
+
+  <!-- SINGLE ANSWER -->
+  <div *ngIf="!question.hasMultipleAnswers">
+    <label *ngFor="let opt of ['A','B','C','D']">
+      <input type="radio"
+             name="correct"
+             [value]="opt"
+             [(ngModel)]="question.correctAnswer" />
+      Option {{opt}}
+    </label>
+  </div>
+
+  <!-- MULTIPLE ANSWERS -->
+  <div *ngIf="question.hasMultipleAnswers">
+    <label *ngFor="let opt of ['A','B','C','D']">
+      <input type="checkbox"
+             [checked]="question.correctAnswers?.includes(opt)"
+             (change)="toggleAnswer(opt, $event)" />
+      Option {{opt}}
+    </label>
+  </div>
+
+</div>
+
+<!-- Show only if coding question -->
+<div *ngIf="question.isCode" class="form-group">
+  <label>Code Snippet</label>
+  <textarea
+    [(ngModel)]="question.codeSnippet"
+    rows="6"
+    placeholder="Write code here..."
+    class="code-area">
+  </textarea>
+</div>
+
+    <!-- Dropdown only if needed -->
+    <div *ngIf="!question.courseId" class="form-group">
+      <label>Select Course</label>
+      <select [(ngModel)]="question.courseId">
+        <option [ngValue]="null">Select Course</option>
+        <option *ngFor="let c of courses" [ngValue]="c.courseId">
+          {{ c.title }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Difficulty -->
+    
+
+    <!-- Button -->
+    <button class="save-btn" (click)="save()">
+      {{ isEditMode ? 'Update Question' : 'Save Question' }}
+    </button>
+
+  </div>
+</div>

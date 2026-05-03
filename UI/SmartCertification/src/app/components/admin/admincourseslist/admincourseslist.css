@@ -1,0 +1,111 @@
+.page {
+  padding: 20px;
+  background: #f4f6f9;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 26px;
+  color: #1e293b;
+}
+
+.header p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* ADD BUTTON */
+.add-btn {
+  background: #2563eb;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-btn:hover {
+  background: #1d4ed8;
+}
+
+/* TABLE */
+.table-wrapper {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.course-table th {
+  text-align: left;
+  padding: 12px;
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.course-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.course-table tr:hover {
+  background: #f8fafc;
+}
+
+/* TITLE */
+.title {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+/* ACTION BUTTONS */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.btn.question {
+  background: #10b981;
+  color: white;
+}
+
+.btn.view {
+  background: #6366f1;
+  color: white;
+}
+
+.btn.edit {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}

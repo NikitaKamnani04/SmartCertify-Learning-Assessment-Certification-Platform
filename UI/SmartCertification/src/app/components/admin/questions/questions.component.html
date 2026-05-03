@@ -1,0 +1,63 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2>📘 Questions</h2>
+      <p>Course ID: {{ courseId }}</p>
+    </div>
+
+    <button class="back-btn" routerLink="/admin/courses">
+      ⬅ Back
+    </button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+
+    <table class="question-table">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Question</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let q of questions">
+
+          <td>{{ q.questionId }}</td>
+
+          <td class="question-text">
+            {{ q.questionText }}
+          </td>
+
+          <td class="actions">
+
+            <button class="btn edit"
+              [routerLink]="['/admin/question/edit', q.questionId]">
+              ✏ Edit
+            </button>
+
+            <button class="btn delete"
+              (click)="delete(q.questionId)">
+              🗑 Delete
+            </button>
+
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+    <!-- Empty state -->
+    <div *ngIf="questions.length === 0" class="empty">
+      🚫 No questions found for this course
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,63 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2>📚 Courses</h2>
+      <p>Manage all available courses and their questions</p>
+    </div>
+
+    <button routerLink="/admin/course/create" class="add-btn">
+      + Add Course
+    </button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+
+    <table class="course-table">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let c of courses">
+
+          <td>{{ c.courseId }}</td>
+
+          <td>
+            <span class="title">{{ c.title }}</span>
+          </td>
+
+          <td class="actions">
+
+            <button class="btn question"
+              (click)="addQuestion(c.courseId)">
+              ➕ Question
+            </button>
+
+            <button class="btn view"
+              (click)="viewQuestions(c.courseId)">
+              👁 View
+            </button>
+
+            <button class="btn edit"
+              [routerLink]="['/admin/course/edit', c.courseId]">
+              ✏ Edit
+            </button>
+
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

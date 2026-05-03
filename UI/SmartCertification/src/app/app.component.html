@@ -1,0 +1,14 @@
+
+<div>
+    <app-header></app-header>
+
+    @if(!isIframe)
+    {
+    <div>
+        <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+    }
+    <br>
+    <!-- <ngx-spinner></ngx-spinner> -->
+    <app-footer></app-footer>
+</div>>

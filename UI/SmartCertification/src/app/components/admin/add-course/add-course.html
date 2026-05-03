@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="card">
+
+    <h2 class="title">
+      {{ isEditMode ? '✏️ Edit Course' : '➕ Add Course' }}
+    </h2>
+
+    <!-- Title -->
+    <div class="form-group">
+      <label>Course Title</label>
+      <input 
+        type="text" 
+        [(ngModel)]="course.title" 
+        placeholder="Enter course title"
+      />
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label>Description</label>
+      <textarea 
+        [(ngModel)]="course.description"
+        placeholder="Enter course description"
+      ></textarea>
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-group">
+
+      <button 
+        *ngIf="isEditMode" 
+        class="secondary-btn"
+        (click)="addQuestion(id!)">
+        ➕ Add Question
+      </button>
+
+      <button class="primary-btn" (click)="save()">
+        {{ isEditMode ? 'Update Course' : 'Create Course' }}
+      </button>
+
+    </div>
+
+  </div>
+</div>

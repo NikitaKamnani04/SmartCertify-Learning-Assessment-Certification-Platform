@@ -1,0 +1,68 @@
+﻿using AutoMapper;
+using SmartCertification.Application.DTOs;
+using SmartCertification.Application.Interfaces.QuestionsChoice;
+using SmartCertification.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartCertification.Application.Services
+{
+    public class ChoiceService : IChoiceService
+    {
+        private readonly IChoiceRepository _choiceRepository;
+        private readonly IMapper _mapper;
+
+        public ChoiceService(IChoiceRepository choiceRepository, IMapper mapper)
+        {
+            _choiceRepository = choiceRepository;
+            _mapper = mapper;
+        }
+        public async Task AddChoiceAsync(CreateChoiceDto dto)
+        {
+            var choice = _mapper.Map<Choice>(dto);
+            await _choiceRepository.AddChoiceAsync(choice);
+        }
+
+        public async Task DeleteChoiceAsync(int choiceId)
+        {
+            var choice = await _choiceRepository.GetChoiceByIdAsync(choiceId);
+            if(choice == null)
+            {
+               throw new KeyNotFoundException($"Choice with ID {choiceId} not found");
+            }
+            await _choiceRepository.DeleteChoiceAsync(choice);
+        }
+
+        public async Task<IEnumerable<ChoiceDto>> GetAllChoicesAsync(int questionId)
+        {
+            var choices = await _choiceRepository.GetAllChoicesAsync(questionId);
+            return _mapper.Map<IEnumerable<ChoiceDto>>(choices);
+        }
+
+        public async Task<ChoiceDto?> GetChoiceByIdAsync(int choiceId)
+        {
+            var choice = await _choiceRepository.GetChoiceByIdAsync(choiceId);
+            return choice != null ? _mapper.Map<ChoiceDto>(choice) : null;
+        }
+
+        public async Task UpdateChoiceAsync(int choiceId, UpdateChoiceDto dto)
+        {
+            var existingchoice = await _choiceRepository.GetChoiceByIdAsync(choiceId);
+            if (existingchoice == null)
+                throw new KeyNotFoundException($"Choice with ID {choiceId} not found.");
+            _mapper.Map(dto, existingchoice);
+            await _choiceRepository.UpdateChoiceAsync(existingchoice);
+        }
+
+        public async Task UpdateUserChoiceAsync(int choiceId, UpdateUserChoice dto)
+        {
+            var existingChoice = await _choiceRepository.GetChoiceByIdAsync(choiceId);
+            if (existingChoice == null)
+                throw new KeyNotFoundException($"Choice with ID {choiceId} not found.");
+
+            _mapper.Map(dto, existingChoice);
+            await _choiceRepository.UpdateChoiceAsync(existingChoice);
+        }
+    }
+}

@@ -1,0 +1,117 @@
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using SmartCertification.Application.DTOs;
+using SmartCertification.Application.Interfaces.QuestionsChoice;
+using SmartCertification.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Text;
+
+namespace SmartCertification.Application.Services
+{
+    public class QuestionService : IQuestionService
+    {
+        private readonly IQuestionRepository _repository;
+        private readonly IMapper _mapper;
+
+        public QuestionService(IQuestionRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+
+        public async Task<QuestionDto> AddQuestionAndChoicesAsync(QuestionDto dto)
+        {
+            var question = _mapper.Map<Question>(dto);
+            question.Choices = dto.Choices.Select(c => _mapper.Map<Choice>(c)).ToList();
+            await _repository.AddQuestionAsync(question);
+            _mapper.Map(question,dto);
+            return dto;
+        }
+
+        public async Task AddQuestionAsync(CreateQuestionDto dto)
+        {
+            var question=_mapper.Map<Question>(dto);
+            await _repository.AddQuestionAsync(question); 
+        }
+
+        public async Task DeleteQuestionAsync(int id)
+        {
+            var question = await _repository.GetQuestionByIdAsync(id);
+            if(question == null)
+            {
+                throw new KeyNotFoundException("Question not found");
+            }
+
+            await _repository.DeleteQuestionAsync(question);
+        }
+
+        public async Task<IEnumerable<QuestionDto>> GetAllQuestionsAsync()
+        {
+            var questions = await _repository.GetAllQuestionsAsync();
+            return _mapper.Map<IEnumerable<QuestionDto>>(questions);
+        }
+
+        public async Task<QuestionDto?> GetQuestionByIdAsync(int id)
+        {
+            var question = await _repository.GetQuestionByIdAsync(id);
+            return question == null ? null : _mapper.Map<QuestionDto>(question);
+        }
+
+        public async Task<List<QuestionDto>> GetQuestionsByCourseIdAsync(int courseId)
+        {
+            var questions = await _repository.GetQuestionsByCourseIdAsync(courseId);
+
+            return _mapper.Map<List<QuestionDto>>(questions);
+        }
+
+        //public async Task UpdateQuestionAndChoicesAsync(int id, QuestionDto dto)
+        //{
+        //    var question = await _repository.GetQuestionByIdAsync(id);
+
+        //    if (question == null)
+        //    {
+        //        throw new KeyNotFoundException("Question not found");
+        //    }
+
+        //    // Update question fields
+        //    _mapper.Map(dto, question);
+
+        //    //Update choices
+        //    question.Choices = dto.Choices
+        //        .Select(c => _mapper.Map<Choice>(c))
+        //        .ToList();
+
+        //    await _repository.UpdateQuestionAsync(question);
+        //}
+
+        public async Task UpdateQuestionAndChoicesAsync(int id, QuestionDto dto)
+        {
+            await _repository.UpdateQuestionAndChoicesAsync(id, dto);
+        }
+
+        public async Task UpdateQuestionAsync(int id, UpdateQuestionDto dto)
+        {
+            var question = await _repository.GetQuestionByIdAsync(id);
+            if (question == null)
+            {
+                throw new KeyNotFoundException("Question not found");
+            }
+
+            _mapper.Map(question, dto);
+            await _repository.UpdateQuestionAsync(question);
+        }
+
+
+
+        //i m creating this 
+        //public async task<ienumerable<choicedto>> getchoicesbyquestionidasync(int questionid)
+        //{
+        //    var choices = await _repository.getchoicesbyquestionidasync(questionid);
+        //    return _mapper.map<ienumerable<choicedto>>(choices);
+        //}
+
+
+    }
+}
